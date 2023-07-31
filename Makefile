@@ -1,0 +1,4 @@
+make c:
+	clean
+
+	
