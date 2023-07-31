@@ -1,6 +1,13 @@
 import requests
 from bs4 import BeautifulSoup
 
+def at_check(words):
+
+    words = words.split(' ')
+    for i in words:
+        if '@' in i:
+            return i
+
 
 def email_search(url):
 
@@ -9,9 +16,11 @@ def email_search(url):
 
     soup = BeautifulSoup(res.text, 'html.parser')
     tag = soup.body
-    for strings in tag.stripped_strings:
-        print(strings)
+    for string in tag.stripped_strings:
+        email = at_check(string)
+        if email is not None:
+            print(email)
 
 
 if __name__ == "__main__":
-    email_search('http://www.trailcourts.ca/boxing-club.html')
+    email_search('https://www.10thstreetboxing.com/')
