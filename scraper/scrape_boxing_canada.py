@@ -8,6 +8,11 @@ def get_google_search_links(query):
     res = requests.get(base_url, headers=headers)
     return res.text  # Return the HTML content as text, not the full response object
 
+def link_process(link):
+
+    
+    return []
+
 inquire = input("Search: ")
 html = get_google_search_links(inquire)
 link_list = list()
@@ -20,5 +25,4 @@ for link in links:
     if link['href'].startswith('https://'):
         link_list.append(link['href'])
 
-for i in link_list:
-    print(i)
+link_list =link_process(link_list)
