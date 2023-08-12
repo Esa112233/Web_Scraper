@@ -18,28 +18,51 @@ def get_google_search_url(url):
     return res.text  # Return the HTML content as text, not the full response object
 
 
+# def soup_process(html, current_url, recursive, email_track):
+#     #email_track = dict()
+#     if recursive is False:
+#         return email_track
+#     soup = BeautifulSoup(html, 'html.parser')
+#     #links = soup.find_all('a', href=True)  # Find anchor tags with the 'href' attribute
+#     links = soup.find_all('a', href=True)
+
+#     for link in links:
+#         #print(link['href'])  # Access the 'href' attribute of each anchor tag
+#         if link['href'].startswith('https://'):
+#             #link_list.append(link['href'])
+#             email = contact.email_search(link['href'])
+#             if email_track.get(email) is None:
+#                 email_track[email] = link['href']
+#     next_url = sel.next_page(current_url)
+#     if next_url is None:
+#         return email_track.update({})
+#     if current_url == next_url:
+#         email_track.update(soup_process(get_google_search_url(next_url), next_url, False, email_track))
+#         return email_track
+#     else:
+#         email_track.update(soup_process(get_google_search_url(next_url), next_url, True, email_track))
+#         return email_track
+
 def soup_process(html, current_url, recursive, email_track):
     #email_track = dict()
     if recursive is False:
-        return email_track.update({})
+        return email_track
     soup = BeautifulSoup(html, 'html.parser')
-    #links = soup.find_all('a', href=True)  # Find anchor tags with the 'href' attribute
     links = soup.find_all('a', href=True)
 
     for link in links:
-        #print(link['href'])  # Access the 'href' attribute of each anchor tag
         if link['href'].startswith('https://'):
-            #link_list.append(link['href'])
             email = contact.email_search(link['href'])
-            if email_track.get(email) is None:
-                email_track[email] = link['href']
+            # if email_track.get(email) is None:
+            email_track[email] = link['href']
     next_url = sel.next_page(current_url)
     if next_url is None:
-        return email_track.update({})
-    if current_url == next_url:
-        return email_track.update(soup_process(get_google_search_url(next_url), next_url, False, email_track))
+        return email_track
+    elif current_url == next_url:
+        return soup_process(get_google_search_url(next_url), next_url, False, email_track)
     else:
-        return email_track.update(soup_process(get_google_search_url(next_url), next_url, True, email_track))
+        return soup_process(get_google_search_url(next_url), next_url, True, email_track)
+
 
     
             
@@ -55,11 +78,15 @@ def user_input_url(url):
     html = get_google_search_query(url)
     email_track = dict()
     email_dict = soup_process(html, url, True, email_track)
-    print(email_dict)
+    #print(email_dict)
+    cleaned = contact.clean_email(email_dict)
+    #print(cleaned)
+    return cleaned
 
 
 
 
 if __name__ == "__main__":
     
-    user_input_url("https://www.google.com/search?q=boxing+clothes&sca_esv=555852541&sxsrf=AB5stBgb8S4iiDOWZs-78WGKMa5PQycIsQ:1691749677871&ei=LQ3WZJ3tNKjf0PEP2JqUwAY&start=120&sa=N&ved=2ahUKEwjdt-TUstSAAxWoLzQIHVgNBWg4tAEQ8tMDegQIIxAG&biw=1920&bih=923&dpr=1")
+    #user_input_url("https://www.google.com/search?q=boxing+clothes&sca_esv=555852541&sxsrf=AB5stBgb8S4iiDOWZs-78WGKMa5PQycIsQ:1691749677871&ei=LQ3WZJ3tNKjf0PEP2JqUwAY&start=120&sa=N&ved=2ahUKEwjdt-TUstSAAxWoLzQIHVgNBWg4tAEQ8tMDegQIIxAG&biw=1920&bih=923&dpr=1")
+    pass

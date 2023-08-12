@@ -9,9 +9,9 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QDialog
 import sqlstuff as sql
-from calendar1 import Cal
+from tabel_file import table_win
+
 
 
 
@@ -61,7 +61,7 @@ class Ui_MainWindow():
         self.button_login = QtWidgets.QPushButton(self.centralwidget)
         self.button_login.setGeometry(QtCore.QRect(160, 360, 101, 41))
         self.button_login.setObjectName("button_login")
-        self.button_login.clicked.connect(lambda: self.call_cal(MainWindow))
+        self.button_login.clicked.connect(lambda: self.call_table(MainWindow))
         self.button_register = QtWidgets.QPushButton(self.centralwidget)
         self.button_register.setGeometry(QtCore.QRect(260, 360, 101, 41))
         self.button_register.setObjectName("button_register")
@@ -94,18 +94,28 @@ class Ui_MainWindow():
         
 
     def already_reg_popup(self):
-        msg = QtWidgets.QMessageBox()
-        msg.setWindowTitle("Already Registered")
-        msg.setIcon(QtWidgets.QMessageBox.Warning)
-        msg.setText("User already Registered.")
-        x = msg.exec_()
+        self.msg = QtWidgets.QMessageBox()
+        self.msg.setWindowTitle("Already Registered")
+        self.msg.setIcon(QtWidgets.QMessageBox.Warning)
+        self.msg.setText("User already Registered.")
+        x = self.msg.exec_()
+
 
     def new_reg_popup(self):
-        msg = QtWidgets.QMessageBox()
-        msg.setWindowTitle("Already Registered")
-        msg.setIcon(QtWidgets.QMessageBox.Warning)
-        msg.setText("User successfully registered!")
-        x = msg.exec_()
+        self.msg = QtWidgets.QMessageBox()
+        self.msg.setWindowTitle("Already Registered")
+        self.msg.setIcon(QtWidgets.QMessageBox.Warning)
+        self.msg.setText("User successfully registered!")
+        x = self.msg.exec_()
+
+
+    def incorrect_login_popup(self):
+        self.msg = QtWidgets.QMessageBox()
+        self.msg.setWindowTitle("Error")
+        self.msg.setIcon(QtWidgets.QMessageBox.Warning)
+        self.msg.setText("Incorrect Username or Password")
+        x = self.msg.exec_()
+
 
         
     def register_clicked(self):
@@ -117,13 +127,21 @@ class Ui_MainWindow():
         else:
             self.new_reg_popup()
 
-    def call_cal(self, MainWindow):
-        MainWindow.hide()
-        self.MainWindowcal = QtWidgets.QMainWindow()
-        self.cal = Cal()
-        self.cal.setupUi(self.MainWindowcal)
+
+    def call_table(self, MainWindow):
+        self.usr = self.Line_edit_username_enter.displayText()
+        self.passwrd = self.line_edit_password_enter.displayText()
+        self.check_login = sql.login(self.usr,self.passwrd)
         
-        self.MainWindowcal.show()
+        if self.check_login is True:
+            MainWindow.hide()
+            self.MainWindow_table = QtWidgets.QMainWindow()
+            self.ui_table = table_win()
+            self.ui_table.setupUi(self.MainWindow_table, self.usr)
+            self.MainWindow_table.show()
+        else: 
+            self.incorrect_login_popup()
+
         
            
         

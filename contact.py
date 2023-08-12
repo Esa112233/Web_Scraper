@@ -6,7 +6,7 @@ def at_check(words):
     words = words.split(' ')
     for i in words:
         if '@' in i:
-            print(i)
+            #print(i)
             return i
 
 def decodeEmail(e):
@@ -32,6 +32,16 @@ def email_search(url):
                 return email
     except AttributeError:
         return "@"
+    
+
+def clean_email(email_dict):
+    email_keys_list = list(email_dict.keys())
+    for i in email_keys_list:
+        if i is None or i.startswith("@") or i.endswith("@") or "." not in i:
+            del email_dict[i]
+
+    return email_dict
+
 
 
 #if __name__ == "__main__":
