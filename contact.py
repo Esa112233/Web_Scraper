@@ -21,10 +21,13 @@ def decodeEmail(e):
 def email_search(url):
 
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'}
-    res = requests.get(url, headers=headers)
+    try:
+        res = requests.get(url, headers=headers)
 
-    soup = BeautifulSoup(res.text, 'html.parser')
-    tag = soup.body
+        soup = BeautifulSoup(res.text, 'html.parser')
+        tag = soup.body
+    except:
+        return "@"
     try:
         for string in tag.stripped_strings:
             email = at_check(string)

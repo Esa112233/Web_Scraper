@@ -12,6 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import web_scraper as scrape
 import sqlstuff as sql
 from threading import *
+import convert_to_excel_file as excl
 
 
 class table_win(object):
@@ -57,15 +58,15 @@ class table_win(object):
         self.tableWidget.setMinimumSize(QtCore.QSize(1091, 631))
         self.tableWidget.setMaximumSize(QtCore.QSize(1091, 16777215))
         self.tableWidget.setObjectName("tableWidget")
-        self.tableWidget.setColumnCount(3)
+        self.tableWidget.setColumnCount(2)
         self.tableWidget.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(0, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(1, item)
         item = QtWidgets.QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(2, item)
-        self.tableWidget.horizontalHeader().setSortIndicatorShown(False)
+        # self.tableWidget.setHorizontalHeaderItem(2, item)
+        # self.tableWidget.horizontalHeader().setSortIndicatorShown(False)
         self.checkBox_email = QtWidgets.QCheckBox(self.centralwidget)
         self.checkBox_email.setGeometry(QtCore.QRect(50, 820, 71, 21))
         font = QtGui.QFont()
@@ -92,7 +93,7 @@ class table_win(object):
         font.setWeight(75)
         self.pushButton_convert_file.setFont(font)
         self.pushButton_convert_file.setObjectName("pushButton_convert_file")
-        self.pushButton_convert_file.clicked.connect(self.ahh)
+        self.pushButton_convert_file.clicked.connect(self.convert_to_excel)
         self.pushButton_Find = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_Find.setGeometry(QtCore.QRect(420, 90, 171, 51))
         font = QtGui.QFont()
@@ -115,17 +116,25 @@ class table_win(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    def ahh(self):
-        print("hi")
+    
     
 
     def show_data(self, email_links):
+        self.email_links = email_links
         self.row = 0
         self.tableWidget.setRowCount(len(email_links))
         for pair in email_links:
             self.tableWidget.setItem(self.row, 0, QtWidgets.QTableWidgetItem(pair[0]))
             self.tableWidget.setItem(self.row, 1, QtWidgets.QTableWidgetItem(pair[1]))
             self.row+=1
+    
+    
+    def convert_to_excel(self):
+        #print(self.email_links)
+        # self.email_list_excel = list(self.email_links.keys())
+        # self.links_links_excel = list(self.email_links.values())
+        excl.convert(self.email_links)
+
         
 
 
@@ -164,11 +173,13 @@ class table_win(object):
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; font-weight:600;\"> URL:</span></p></body></html>"))
         item = self.tableWidget.horizontalHeaderItem(0)
-        item.setText(_translate("MainWindow", "No."))
-        item = self.tableWidget.horizontalHeaderItem(1)
         item.setText(_translate("MainWindow", "Email"))
-        item = self.tableWidget.horizontalHeaderItem(2)
+        item = self.tableWidget.horizontalHeaderItem(1)
         item.setText(_translate("MainWindow", "Link"))
+        self.tableWidget.setColumnWidth(1, 700)
+        self.tableWidget.setColumnWidth(0, 400)
+        # item = self.tableWidget.horizontalHeaderItem(2)
+        # item.setText(_translate("MainWindow", "Link"))
         self.checkBox_email.setText(_translate("MainWindow", "Email"))
         self.checkBox_URL.setText(_translate("MainWindow", "URL"))
         self.pushButton_convert_file.setText(_translate("MainWindow", "Convert to Excel File"))
