@@ -11,6 +11,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import web_scraper as scrape
 import sqlstuff as sql
+from threading import *
 
 
 class table_win(object):
@@ -100,7 +101,7 @@ class table_win(object):
         font.setWeight(75)
         self.pushButton_Find.setFont(font)
         self.pushButton_Find.setObjectName("pushButton_Find")
-        self.pushButton_Find.clicked.connect(self.find_emails)
+        self.pushButton_Find.clicked.connect(self.find_emails_thread)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1126, 21))
@@ -122,8 +123,8 @@ class table_win(object):
         self.row = 0
         self.tableWidget.setRowCount(len(email_links))
         for pair in email_links:
-            self.tableWidget.setItem(self.row, 0, pair[0])
-            self.tableWidget.setItem(self.row, 1, pair[1])
+            self.tableWidget.setItem(self.row, 0, QtWidgets.QTableWidgetItem(pair[0]))
+            self.tableWidget.setItem(self.row, 1, QtWidgets.QTableWidgetItem(pair[1]))
             self.row+=1
         
 
@@ -131,9 +132,14 @@ class table_win(object):
     def find_emails(self):
         self.entered_url = self.lineEdit_2_url_enter.displayText()
         self.email_dict = scrape.user_input_url(self.entered_url)
+        print("here")
         self.new_emails = sql.check_result_data(self.email_dict, self.sql_username)
         self.show_data(self.new_emails)
 
+
+    def find_emails_thread(self):
+        t1 = Thread(target=self.find_emails)
+        t1.start()
 
     
 
@@ -169,13 +175,13 @@ class table_win(object):
         self.pushButton_Find.setText(_translate("MainWindow", "Find"))
 
 
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow_table = QtWidgets.QMainWindow()
-    ui = table_win()
-    ui.setupUi(MainWindow_table)
-    MainWindow_table.show()
-    sys.exit(app.exec_())
+# if __name__ == "__main__":
+#     import sys
+#     app = QtWidgets.QApplication(sys.argv)
+#     MainWindow_table = QtWidgets.QMainWindow()
+#     ui = table_win()
+#     ui.setupUi(MainWindow_table)
+#     MainWindow_table.show()
+#     sys.exit(app.exec_())
 
 
