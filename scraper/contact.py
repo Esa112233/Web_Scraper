@@ -6,7 +6,7 @@ def at_check(words):
     words = words.split(' ')
     for i in words:
         if '@' in i:
-            print(i)
+            #print(i)
             return i
 
 def decodeEmail(e):
@@ -21,14 +21,30 @@ def decodeEmail(e):
 def email_search(url):
 
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'}
-    res = requests.get(url, headers=headers)
+    try:
+        res = requests.get(url, headers=headers)
 
-    soup = BeautifulSoup(res.text, 'html.parser')
-    tag = soup.body
-    for string in tag.stripped_strings:
-        email = at_check(string)
-        if email is not None:
-            print(email)
+        soup = BeautifulSoup(res.text, 'html.parser')
+        tag = soup.body
+    except:
+        return "@"
+    try:
+        for string in tag.stripped_strings:
+            email = at_check(string)
+            if email is not None:
+                return email
+    except AttributeError:
+        return "@"
+    
+
+def clean_email(email_dict):
+    email_keys_list = list(email_dict.keys())
+    for i in email_keys_list:
+        if i is None or i.startswith("@") or i.endswith("@") or "." not in i:
+            del email_dict[i]
+
+    return email_dict
+
 
 
 #if __name__ == "__main__":

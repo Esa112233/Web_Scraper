@@ -24,10 +24,10 @@ class table_win(object):
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.lineEdit_search_enter = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit_search_enter.setGeometry(QtCore.QRect(130, 50, 311, 31))
+        self.lineEdit_search_enter.setGeometry(QtCore.QRect(200, 50, 250, 31))
         self.lineEdit_search_enter.setObjectName("lineEdit_search_enter")
         self.lineEdit_Or = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit_Or.setGeometry(QtCore.QRect(460, 50, 31, 31))
+        self.lineEdit_Or.setGeometry(QtCore.QRect(460, 50, 40, 31))
         font = QtGui.QFont()
         font.setFamily("Arial Black")
         font.setPointSize(12)
@@ -42,7 +42,7 @@ class table_win(object):
         self.lineEdit_Or.setObjectName("lineEdit_Or")
         self.lineEdit_Or.setReadOnly(True)
         self.textEdit_search_icon = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit_search_icon.setGeometry(QtCore.QRect(20, 50, 91, 31))
+        self.textEdit_search_icon.setGeometry(QtCore.QRect(20, 50, 160, 31))
         self.textEdit_search_icon.setObjectName("textEdit_search_icon")
         self.textEdit_search_icon.setReadOnly(True)
         self.lineEdit_2_url_enter = QtWidgets.QLineEdit(self.centralwidget)
@@ -133,7 +133,8 @@ class table_win(object):
         #print(self.email_links)
         # self.email_list_excel = list(self.email_links.keys())
         # self.links_links_excel = list(self.email_links.values())
-        excl.convert(self.email_links)
+        self.excel_file_name = self.lineEdit_search_enter.displayText()
+        excl.convert(self.email_links, self.excel_file_name)
 
         
 
@@ -161,12 +162,12 @@ class table_win(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.lineEdit_Or.setText(_translate("MainWindow", "Or"))
+        self.lineEdit_Or.setText(_translate("MainWindow", "And"))
         self.textEdit_search_icon.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; font-weight:600;\">  Search:</span></p></body></html>"))
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; font-weight:600;\">  Excel File Name:</span></p></body></html>"))
         self.textEdit_URL_text.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"

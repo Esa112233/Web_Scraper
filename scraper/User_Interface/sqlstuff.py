@@ -16,7 +16,7 @@ except:
     pass
 
 def dta_print_all():
-    mycursor.execute("SELECT * FROM Register")
+    mycursor.execute("SELECT * FROM Esa")
     for x in mycursor:
         print(x)
     
@@ -79,11 +79,14 @@ def check_result_data(email_dict, table_name):
         query_get = f"SELECT EXISTS (SELECT * FROM {table_name} WHERE email=%s)"
         query_insert = f"INSERT INTO {table_name}(email, link) VALUE(%s, %s)"
         mycursor.execute(query_get, (n[0],))
-        exists = bool(mycursor.fetchone())
+        exists = bool(mycursor.fetchone()[0])
         if exists is False:
-            mycursor.execute(query_insert, (n[0], n[1]))
-            db.commit()
-            checked_duplicates.append((n[0], n[1]))
+            try:
+                mycursor.execute(query_insert, (n[0], n[1]))
+                db.commit()
+                checked_duplicates.append((n[0], n[1]))
+            except:
+                pass
     return checked_duplicates
 
             
@@ -95,10 +98,10 @@ def check_result_data(email_dict, table_name):
     
 if __name__ == "__main__":
     #registered("Esa", "swiss")
-    #delete()
+    # delete()
     #get_dta()
     dta_print_all()
-    #mycursor.execute("DELETE FROM Register")
+    #mycursor.execute("DELETE FROM Esa")
     #db.commit()
     
-    pass
+  

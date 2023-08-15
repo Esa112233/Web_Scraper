@@ -11,7 +11,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sqlstuff as sql
 from tabel_file import table_win
-
+import sys
 
 
 
@@ -129,12 +129,12 @@ class Ui_MainWindow():
 
 
     def call_table(self, MainWindow):
-        self.usr = self.Line_edit_username_enter.displayText()
+        self.usr = self.Line_edit_username_enter.displayText()8
         self.passwrd = self.line_edit_password_enter.displayText()
         self.check_login = sql.login(self.usr,self.passwrd)
         
         if self.check_login is True:
-            MainWindow.hide()
+            MainWindow.close()
             self.MainWindow_table = QtWidgets.QMainWindow()
             self.ui_table = table_win()
             self.ui_table.setupUi(self.MainWindow_table, self.usr)
@@ -166,26 +166,32 @@ class Ui_MainWindow():
 
 
 
+class MY_app():
+    def __init__(self):
+    
+        self.app = QtWidgets.QApplication(sys.argv)
+        self.main_window = QtWidgets.QMainWindow()
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self.main_window)
+    
+    def run_app(self):
+        self.main_window.show()
+        sys.exit(self.app.exec_())
 
 
 
 
 
 if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
     
-    # temp = QtWidgets.QStackedWidget()
-    # temp.addWidget(ui)
-    # temp.setCurrentWidget(ui)
-   
-    # temp.show()
+    # app = QtWidgets.QApplication(sys.argv)
+    # MainWindow = QtWidgets.QMainWindow()
+    # ui = Ui_MainWindow()
+    # ui.setupUi(MainWindow)
 
-    MainWindow.show()
+    # MainWindow.show()
     
+    # sys.exit(app.exec_())
 
-    
-    sys.exit(app.exec_())
+    app_instance = MY_app()
+    app_instance.run_app()
