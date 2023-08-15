@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import web_scraper as scrape
+import webscraper as scrape
 import sqlstuff as sql
 from threading import *
 import convert_to_excel_file as excl
@@ -67,24 +67,24 @@ class table_win(object):
         item = QtWidgets.QTableWidgetItem()
         # self.tableWidget.setHorizontalHeaderItem(2, item)
         # self.tableWidget.horizontalHeader().setSortIndicatorShown(False)
-        self.checkBox_email = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_email.setGeometry(QtCore.QRect(50, 820, 71, 21))
+        # self.checkBox_email = QtWidgets.QCheckBox(self.centralwidget)
+        # self.checkBox_email.setGeometry(QtCore.QRect(50, 820, 71, 21))
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(True)
         font.setWeight(75)
-        self.checkBox_email.setFont(font)
-        self.checkBox_email.setLayoutDirection(QtCore.Qt.RightToLeft)
-        self.checkBox_email.setObjectName("checkBox_email")
-        self.checkBox_URL = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_URL.setGeometry(QtCore.QRect(140, 820, 61, 21))
+        # self.checkBox_email.setFont(font)
+        # self.checkBox_email.setLayoutDirection(QtCore.Qt.RightToLeft)
+        # self.checkBox_email.setObjectName("checkBox_email")
+        # self.checkBox_URL = QtWidgets.QCheckBox(self.centralwidget)
+        # self.checkBox_URL.setGeometry(QtCore.QRect(140, 820, 61, 21))
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(True)
         font.setWeight(75)
-        self.checkBox_URL.setFont(font)
-        self.checkBox_URL.setLayoutDirection(QtCore.Qt.RightToLeft)
-        self.checkBox_URL.setObjectName("checkBox_URL")
+        # self.checkBox_URL.setFont(font)
+        # self.checkBox_URL.setLayoutDirection(QtCore.Qt.RightToLeft)
+        # self.checkBox_URL.setObjectName("checkBox_URL")
         self.pushButton_convert_file = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_convert_file.setGeometry(QtCore.QRect(230, 810, 401, 41))
         font = QtGui.QFont()
@@ -181,8 +181,8 @@ class table_win(object):
         self.tableWidget.setColumnWidth(0, 400)
         # item = self.tableWidget.horizontalHeaderItem(2)
         # item.setText(_translate("MainWindow", "Link"))
-        self.checkBox_email.setText(_translate("MainWindow", "Email"))
-        self.checkBox_URL.setText(_translate("MainWindow", "URL"))
+        # self.checkBox_email.setText(_translate("MainWindow", "Email"))
+        # self.checkBox_URL.setText(_translate("MainWindow", "URL"))
         self.pushButton_convert_file.setText(_translate("MainWindow", "Convert to Excel File"))
         self.pushButton_Find.setText(_translate("MainWindow", "Find"))
 

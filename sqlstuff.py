@@ -1,3 +1,4 @@
+from mysql.connector.locales.eng import client_error
 import mysql.connector
 
 db = mysql.connector.connect(
@@ -5,8 +6,7 @@ db = mysql.connector.connect(
     host="localhost",
     user="Esa",
     password="Loveesamousa1",
-    database ="testdatabase"
-)
+    database ="testdatabase")
 
 mycursor = db.cursor()
 try:
@@ -97,11 +97,13 @@ def check_result_data(email_dict, table_name):
         
     
 if __name__ == "__main__":
+   
+
     #registered("Esa", "swiss")
     # delete()
     #get_dta()
-    dta_print_all()
+    #dta_print_all()
     #mycursor.execute("DELETE FROM Esa")
     #db.commit()
-    
+    pass
   

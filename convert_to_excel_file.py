@@ -24,28 +24,21 @@ def convert(email_list, excel_file_name):
     data_frame = pd.DataFrame(data)
     try:
         full_path = os.path.join(output_directory, f"{excel_file_name}.xlsx")
-        if os.path.isfile(full_path):
+        if not os.path.isfile(full_path):
             # full_path = os.path.join(output_directory, f"{excel_file_name}.xlsx")
             data_frame.to_excel(full_path)
             subprocess.run(["start", full_path], shell=True)
         else:
             randomlist = []
-        for i in range(0,10):
-            n = random.randint(1,9)
-            randomlist.append(n)
-        randomlist = ''.join(map(str, randomlist))
-        full_path = os.path.join(output_directory, f"{excel_file_name}{randomlist}.xlsx")      
-        data_frame.to_excel(full_path)
-        subprocess.run(["start", full_path], shell=True)
+            for i in range(0,10):
+                n = random.randint(1,9)
+                randomlist.append(n)
+            randomlist = ''.join(map(str, randomlist))
+            full_path = os.path.join(output_directory, f"{excel_file_name}{randomlist}.xlsx")      
+            data_frame.to_excel(full_path)
+            subprocess.run(["start", full_path], shell=True)
     except: 
-        randomlist = []
-        for i in range(0,10):
-            n = random.randint(1,9)
-            randomlist.append(n)
-        randomlist = ''.join(map(str, randomlist))
-        full_path = os.path.join(output_directory, f"{excel_file_name}{randomlist}.xlsx")      
-        data_frame.to_excel(full_path)
-        subprocess.run(["start", full_path], shell=True)
+        pass
     
 
 

@@ -10,7 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sqlstuff as sql
-from tabel_file import table_win
+from table_file import table_win
 import sys
 
 
@@ -129,7 +129,7 @@ class Ui_MainWindow():
 
 
     def call_table(self, MainWindow):
-        self.usr = self.Line_edit_username_enter.displayText()8
+        self.usr = self.Line_edit_username_enter.displayText()
         self.passwrd = self.line_edit_password_enter.displayText()
         self.check_login = sql.login(self.usr,self.passwrd)
         
